@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate, NavigationType } from "react-router-dom"
+import Register from "./pages/Register"
+import Login from "./pages/Login"
+import HomePage from './pages/HomePage';
+import Products from './pages/Products';
+import NewProduct from './pages/products/NewProduct';
+import UpdateProduct from './pages/UpdateProduct';
 
-function App() {
+function App({ element: Component, ...rest }) {
+  const isLoggedIn = !!localStorage.getItem('token');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/register" element={<Register />} />
+          <Route path='/' element={<Login />} />
+          <Route path='/home' {...rest} element={isLoggedIn ? <HomePage/> : <Navigate to="/"/>}/>
+          <Route path='/products' {...rest} element={isLoggedIn ? <Products/> : <Navigate to="/"/>}/>
+          <Route path='/products/new' {...rest} element={isLoggedIn ? <NewProduct/> : <Navigate to="/"/>}/>
+          <Route path='/edit-product/:id' {...rest} element={isLoggedIn ? <UpdateProduct/> : <Navigate to="/"/>}/>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
