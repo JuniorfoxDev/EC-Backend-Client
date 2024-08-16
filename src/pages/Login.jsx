@@ -8,7 +8,7 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://ec-backend-server.vercel.app//login', {
+            const response = await fetch('https://ec-backend-server.vercel.app/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
