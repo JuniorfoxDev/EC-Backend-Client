@@ -10,7 +10,7 @@ const Register = () => {
     const handleRegsiter = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:3001/register', {
+            const response = await fetch('https://ec-backend-server.vercel.app/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', 
