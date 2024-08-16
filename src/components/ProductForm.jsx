@@ -42,7 +42,7 @@ function ProductForm() {
         product.sizes.forEach(size => formData.append('sizes[]', size));  
         setIsUploading(true);
         try {
-            const response = await fetch('http://localhost:3001/upload', {
+            const response = await fetch('https://ec-backend-server.vercel.app/upload', {
                 method: 'POST',
                 body: formData,
             });
