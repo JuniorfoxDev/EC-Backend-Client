@@ -11,9 +11,12 @@ const Register = () => {
         e.preventDefault();
         try {
             const response = await fetch('https://ec-backend-server.vercel.app/register', {
-                method: 'POST',
-            
-                body: JSON.stringify({name,email,password}),
+                method: 'POST', headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ name, email, password }),
+                credentials: 'include'
             });
             const data = await response.json();
             if (response.ok) {
