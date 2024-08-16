@@ -16,7 +16,7 @@ const AllProducts = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/products`);
+            const response = await fetch(`https://ec-backend-server.vercel.app/products`);
             const data = await response.json();
             console.log(data);
             if (data) {
@@ -37,7 +37,7 @@ const AllProducts = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://localhost:3001/products/${id}`, {
+            const response = await fetch(`https://ec-backend-server.vercel.app/products/${id}`, {
                 method: 'DELETE',
             });
 
