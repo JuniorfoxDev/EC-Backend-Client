@@ -11,20 +11,24 @@ const Register = () => {
     const handleRegsiter = async (e) => {
         e.preventDefault();
          try {
-        const response = await axios.post('https://ec-backend-server.vercel.app/register', {
-            name,
-            email,
-            password
-        });
-        setSuccess('Register success!');
-        setError('');
-        setTimeout(() => {
-            window.location.href = '/';
-        }, 2000);
-    } catch (error) {
-        setSuccess('');
-        setError(error.response?.data?.message || "Registration failed.");
-    }
+            const response = await fetch('https://ec-backend-server.vercel.app/register', {
+                method: 'POST',
+                body: JSON.stringify({ name, email, password }),
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setSuccess('Register success!');
+                setError('');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);
+            } else {
+                setSuccess('');
+                setError(data.message || "Registration failed.")
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
     const handleLogin = () => {
         window.location.href = "/"
