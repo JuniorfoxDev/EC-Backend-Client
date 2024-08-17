@@ -56,7 +56,7 @@ const Register = () => {
                     <p className='text-center font-semibold'>Already Registered !</p>
                 </div>
                 <div>
-                    <button type='submit' className='bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus-shadow-outline w-full' onClick={handleLogin}>Login</button>
+                    <button type='button' className='bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus-shadow-outline w-full' onClick={handleLogin}>Login</button>
                 </div>
             </form>
                 
