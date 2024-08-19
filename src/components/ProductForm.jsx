@@ -6,13 +6,17 @@ function ProductForm() {
         name: '',
         price: '',
         description: '',
-        sizes: []
+        sizes: [],
+        category : '',
+        subcategory : ''
     });
     const [isUploading, setIsUploading] = useState(false);
     const [successMessage, setSuccessMessage] = useState(null);
     const navigate = useNavigate();
     const availableSizes = ['6 UK', '7 UK', '8 UK', '9 UK', '10 UK', '11 UK'];
-
+    const categroies = {
+        "Men's Shoes" : ['Low','Mid','Top']
+    };
     const handleFileUpload = (e) => {
         setSelectedFiles(e.target.files);
     };
@@ -29,6 +33,18 @@ function ProductForm() {
             return { ...prevProduct, sizes: newSizes };
         });
     };
+    const handleCategoryChange = (e) => {
+        const selectedCategory = e.target.value;
+        setProduct(prevProduct => ({
+            ...prevProduct,
+            category : selectedCategory,
+            subcategory : ''
+        }));
+    };
+    const handleSubcategoryChange = (e) => {
+        const {value} = e.target;
+        setProduct(prevProduct => ({..prevProduct,subcategory: value}))
+    }
     const handleUpload = async (e) => {
         e.preventDefault();
 
@@ -39,6 +55,8 @@ function ProductForm() {
         formData.append('name', product.name);
         formData.append('price', product.price);
         formData.append('description', product.description);
+        formData.append('category',product.category);
+        formData.append('subcategory',product.subcategory);
         product.sizes.forEach(size => formData.append('sizes[]', size));  
         setIsUploading(true);
         try {
@@ -125,6 +143,26 @@ function ProductForm() {
                                 ))}
                             </div>
                         </div>
+                        <div className='mb-2'>
+                            <label className='block mb-2'>Category</label>
+                            <select name="category" value={product.category} onChange={handleCategoryChange} className='p-2 border rounded w-full outline-none'>
+                                <option value="">Select Category</option>
+                                {Object.keys(categroies).map(category => (
+                                    <option key={category} value={category} >{category}</option>
+                                ))}
+                            </select>
+                        </div>
+                        {product.category && (
+                            <div className='mb-4'>
+                                <label className='block mb-2'>Sub Category</label>
+                                <select name="subcategory" value={product.subcategory} onChange={handleSubcategoryChange} className='p-2 border rounded w-full outline-none'>
+                                    <option value="">Select SubCategory</option>
+                                    {categroies[product.category].map(subcategory => (
+                                        <option value={subcategory} key={subcategory}>{subcategory}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
                     </div>
                     <div className="col-span-2 text-center">
                         <button
