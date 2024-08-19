@@ -12,10 +12,15 @@ const UpdateProduct = () => {
         price: '',
         description: '',
         sizes:[],
-        images:[]
+        images:[],
+        category:'',
+        subcategory: ''
     });
     const [newImages,setNewImages] = useState([]);
     const [loading,setLoading] = useState(true);
+    const categroies = {
+        "Men's Shoes" : ['Low','Mid','Top']
+    }
     useEffect(() => {
         fetchProduct();
     },[])
@@ -24,8 +29,7 @@ const UpdateProduct = () => {
             const response = await fetch(`https://ec-backend-server.vercel.app/products/${id}`);
             const data  = response.json();
             if(data){
-                setProduct({ ...data, sizes: data.sizes || [] });
-                
+                setProduct({ ...data, sizes: data.sizes || [], category: data.category || '',subcategory : data.subcategory || '' });
             }else{
                 console.log('Product not found')
             }
@@ -49,12 +53,26 @@ const UpdateProduct = () => {
                 : [...prevProduct.sizes, size]
         }));
     };
+    const handleCategoryChange = (e) => {
+        const selectedCategory = e.target.value;
+        setProduct(prevProduct => ({ 
+            ...prevProduct, 
+            category: selectedCategory, 
+            subcategory: '' 
+        }));
+    };
+
+    const handleSubcategoryChange = (e) => {
+        setProduct({ ...product, subcategory: e.target.value });
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('name',product.name);
         formData.append('price',product.price);
         formData.append('description',product.description);
+        formData.append('category', product.category);
+        formData.append('subcategory', product.subcategory);
         product.sizes.forEach(size => formData.append('sizes[]', size));
         for (let i = 0; i < newImages.length; i++) {
             formData.append('images',newImages[i]);
@@ -142,6 +160,36 @@ const UpdateProduct = () => {
                               ))}
                           </div>
                       </div>
+                      <div className="mb-4">
+                            <label className="block mb-2">Category</label>
+                            <select 
+                                name="category"
+                                value={product.category}
+                                onChange={handleCategoryChange}
+                                className="p-2 border rounded w-full outline-none"
+                            >
+                                <option value="">Select Category</option>
+                                {Object.keys(categories).map(category => (
+                                    <option key={category} value={category}>{category}</option>
+                                ))}
+                            </select>
+                        </div>
+                        {product.category && (
+                            <div className="mb-4">
+                                <label className="block mb-2">Subcategory</label>
+                                <select 
+                                    name="subcategory"
+                                    value={product.subcategory}
+                                    onChange={handleSubcategoryChange}
+                                    className="p-2 border rounded w-full outline-none"
+                                >
+                                    <option value="">Select Subcategory</option>
+                                    {categories[product.category].map(subcategory => (
+                                        <option key={subcategory} value={subcategory}>{subcategory}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
                       <div className="flex items-center justify-between">
                           <button
                               type="submit"
