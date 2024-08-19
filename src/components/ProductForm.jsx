@@ -43,7 +43,7 @@ function ProductForm() {
     };
     const handleSubcategoryChange = (e) => {
         const {value} = e.target;
-        setProduct(prevProduct => ({..prevProduct,subcategory: value}))
+        setProduct(prevProduct => ({...prevProduct,subcategory: value}))
     }
     const handleUpload = async (e) => {
         e.preventDefault();
