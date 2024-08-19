@@ -18,7 +18,7 @@ const UpdateProduct = () => {
     });
     const [newImages,setNewImages] = useState([]);
     const [loading,setLoading] = useState(true);
-    const categroies = {
+    const categories = {
         "Men's Shoes" : ['Low','Mid','Top']
     }
     useEffect(() => {

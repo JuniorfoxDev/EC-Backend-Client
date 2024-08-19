@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import Products from './pages/Products';
 import NewProduct from './pages/products/NewProduct';
 import UpdateProduct from './pages/UpdateProduct';
+import Categories from './pages/Categories';
 
 function App({ element: Component, ...rest }) {
   const isLoggedIn = !!localStorage.getItem('token');
@@ -19,6 +20,7 @@ function App({ element: Component, ...rest }) {
           <Route path='/products' {...rest} element={isLoggedIn ? <Products/> : <Navigate to="/"/>}/>
           <Route path='/products/new' {...rest} element={isLoggedIn ? <NewProduct/> : <Navigate to="/"/>}/>
           <Route path='/edit-product/:id' {...rest} element={isLoggedIn ? <UpdateProduct/> : <Navigate to="/"/>}/>
+          <Route path='/categories' {...rest} element={isLoggedIn ? <Categories/> : <Navigate to="/"/>}/>
         </Routes>
       </div>
     </Router>
