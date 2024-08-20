@@ -51,7 +51,7 @@ const Categories = () => {
                     <div key={category.name} className="border p-4 rounded-md">
                         <h2 className="font-bold mb-2">{category.name}</h2>
                         <ul>
-                            {category.subcategories.map((subcategory) => (
+                            {category.subcategory.map((subcategory) => (
                                 <li key={subcategory} className="mb-1">
                                     <button 
                                         onClick={() => handleSubcategoryClick(subcategory)}
