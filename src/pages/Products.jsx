@@ -65,7 +65,7 @@ const AllProducts = () => {
     return (
         <div className='flex gap-4'>
             <Navbar />
-            <div className="container mx-auto p-4">
+            <div className="container mx-auto p-4 pb-20">
                 <div>
                     <h2 className='font-bold pb-3'>Add New Product</h2>
                     <button type='button' onClick={handleCreate} className='bg-blue-500 text-white px-4 py-2 rounded'>Create</button>
