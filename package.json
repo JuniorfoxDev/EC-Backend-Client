@@ -47,5 +47,6 @@
             "http": false,
             "https": false
         }
-    }
+    },
+    "proxy": "https://ec-backend-server.vercel.app"
 }
